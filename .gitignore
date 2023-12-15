@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# IDE
+.vscode
+
+#OSX
+**/.DS_Store
