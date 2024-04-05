@@ -3,6 +3,7 @@ package day05
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strings"
 	"time"
 
@@ -168,21 +169,38 @@ func partA() int {
 }
 
 func partB() int {
-	lines := util.GetInput("day05/day05Input.txt")
+    lines := util.GetInput("day05/day05Input.txt")
 
-	seeds := scanSeedsv2(lines[0])
-	sets := getSets(lines)
+    seeds := scanSeedsv2(lines[0])
+    sets := getSets(lines)
 
-	i := 0
-	for {
-		seedSolution := getSeed(i, sets)
+    // Sort the seeds
+    sort.Slice(seeds, func(i, j int) bool {
+        return seeds[i].start < seeds[j].start
+    })
 
-		for _, seed := range seeds {
-			if seedSolution >= seed.start && seedSolution <= seed.end {
-				return i
-			}
-		}
+    low, high := 0, math.MaxInt32
 
-		i++
-	}
+    for low <= high {
+        mid := low + (high-low)/2
+        seedSolution := getSeed(mid, sets)
+
+        found := false
+        for _, seed := range seeds {
+            if seedSolution >= seed.start && seedSolution <= seed.end {
+                found = true
+                break
+            }
+        }
+
+        if found {
+            return mid
+        } else if seedSolution < seeds[0].start {
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+
+    return -1 // return an error value if no solution is found
 }
