@@ -1,6 +1,6 @@
 # Advent of Code
-# Per AoC guidelines, we should not commit puzzle inputs to the repo
-input.txt
+# Per AoC guidelines, we should not commit puzzle text, examples, andinputs to the repo
+*.txt
 
 # IDE
 .idea/

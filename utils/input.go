@@ -56,3 +56,11 @@ func ReadLinestoInts(path string) ([][]int, error) {
 
 	return lines, nil
 }
+
+func MustConv(s string) int {
+	n, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return n
+}

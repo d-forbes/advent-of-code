@@ -9,15 +9,21 @@ import (
 )
 
 func main() {
-	lines, err := utils.ReadLines("input.txt")
+	input := parseInput("input.txt")
+
+	start := time.Now()
+	fmt.Println("Part 1:", solvePart1(input), "in", time.Since(start))
+	start = time.Now()
+	fmt.Println("Part 2:", solvePart2(input), "in", time.Since(start))
+}
+
+func parseInput(file string) []string {
+	fi, err := utils.ReadLines(file)
 	if err != nil {
 		log.Fatalf("Failed to read input: %v", err)
 	}
 
-	start := time.Now()
-	fmt.Println("Part 1:", solvePart1(lines), "in", time.Since(start))
-	start = time.Now()
-	fmt.Println("Part 2:", solvePart2(lines), "in", time.Since(start))
+	return fi
 }
 
 func solvePart1(lines []string) int {
